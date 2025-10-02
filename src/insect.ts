@@ -1,0 +1,35 @@
+import {
+  AudioUtils,
+  createComponent,
+  createSystem,
+  Pressed,
+  // Vector3,
+} from "@iwsdk/core";
+
+export const Insect = createComponent("Insect", {});
+
+export class InsectSystem extends createSystem({
+  insect: { required: [Insect] },
+  insectClicked: { required: [Insect, Pressed] },
+}) {
+  // private lookAtTarget!: Vector3;
+  // private vec3!: Vector3;
+
+  init() {
+    // this.lookAtTarget = new Vector3();
+    // this.vec3 = new Vector3();
+    this.queries.insectClicked.subscribe("qualify", (entity) => {
+      AudioUtils.play(entity);
+    });
+  }
+
+  // update() {
+  //   this.queries.insect.entities.forEach((entity) => {
+  //     this.player.head.getWorldPosition(this.lookAtTarget);
+  //     const spinnerObject = entity.object3D!;
+  //     spinnerObject.getWorldPosition(this.vec3);
+  //     this.lookAtTarget.y = this.vec3.y;
+  //     spinnerObject.lookAt(this.lookAtTarget);
+  //   });
+  // }
+}
